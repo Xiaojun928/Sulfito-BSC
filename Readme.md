@@ -8,9 +8,6 @@ In the `01-phylogeny-construction` directory:
 - Phylogenies of each single copy orthologs can be constructed using the scripts in `aa_seq` and `nuc_seq`; 
 - `topo_determine.R` is used to determined the topology supported by each gene tree (based on either amino acids or nucleotides).
 
-In the `02-demography-inference` directory:
-- XXX is used to infer the demography of Sulfitobacter population
-- ...(**TDB**)
 
 In the `03-RMS-identification` directory:
 - Scirpts `s1*-s3*` identify the best hit restriction or modification enzymes for query genes;
