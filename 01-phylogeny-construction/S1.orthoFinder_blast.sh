@@ -4,7 +4,7 @@
 #	usage
 mkdir 00_seq_folder
 echo "sh this.sh"
-echo "require protein seqs namely .faa in 00_seq_folder\n\n"
+echo "require protein seqs namely .pep in 00_seq_folder\n\n"
 
 #	initialization
 threadsT=16 #diamond threads
