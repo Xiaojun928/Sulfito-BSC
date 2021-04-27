@@ -9,7 +9,7 @@ In the `01-phylogeny-construction` directory:
 - `topo_determine.R` is used to determined the topology supported by each gene tree (based on either amino acids or nucleotides).
 
 
-In the `03-RMS-identification` directory:
+In the `02-RMS-identification` directory:
 - Scirpts `s1*-s3*` identify the best hit restriction or modification enzymes for query genes;
 - The reference (R-M system) data is downloaded form [REBASE]( http://rebase.neb.com/rebase/rebase.ftp.html);
 - The `.pep` containing amino acid sequences for each genome is used as the query.
