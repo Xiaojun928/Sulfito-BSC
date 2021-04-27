@@ -1,9 +1,18 @@
 #!/usr/bin/perl -w
+#==================================================================
+#Inputs: 
+#1.gene sequences of each genome in amino acids (*faa) or nucleotide (*gene) sequences
+#2.Output files from OrthoFinder "SingleCopyOrthogroups.txt" and "Orthogroups.txt"
+#Outputs:
+#gene sequences of each single copy ortholog families, 
+#both in amino acids (OG*faa) or nucleotide (OG*dna) sequences
+#==================================================================
+
 
 `mkdir single_copy_gene`;
 ##1. get the map of gene to famid, and map of gene to seq
 my @list=`ls ../00_genome_info/*faa`;
-my @list=`ls ../00_genome_info/*gene`;
+#my @list=`ls ../00_genome_info/*gene`;
 my %hash; #indexed with gene name, pointed to famid;
 my %seq;
 foreach my $file (@list)
@@ -48,7 +57,7 @@ while(<IN>)
 	{next;}
 	
 	open OUT, ">aa_seq/$famid.faa";
-	open OUT, ">nuc_seq/$famid.dna";
+	#open OUT, ">nuc_seq/$famid.dna";
 	my @genes=split(" ");
 	shift @genes;
 	my %occur;
