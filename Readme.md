@@ -1,5 +1,5 @@
 ## Sulfitobacter speciation
-Source code to replicate results for the manuscript "Speciation of an Episymbiotic Marine Bacterial Population Parallels that of Eukaryotes Under Incomplete Lineage Sorting".
+Source code to replicate results for the manuscript "A Novel Bacterial Speciation Process Found in a Marine Symbiotic Population".
 
 In the `01-phylogeny-construction` directory:
 - Input:`.pep` and `.gene` files, the former contains amino acid sequences for each genome, and the latter contains nucleotide sequences for each genome;
