@@ -4,10 +4,9 @@ Source code to replicate results for the manuscript "A Novel Bacterial Speciatio
 In the `01-phylogeny-construction` directory:
 - Input:`.pep` and `.gene` files, the former contains amino acid sequences for each genome, and the latter contains nucleotide sequences for each genome;
 - `S1.orthoFinder_blast.sh` and `S2.extract_scp_seq.pl` prepare the single copy core orthologs sequences in both amino acids (`.faa`) and nucleotides (`.dna`);
-- Phylogenies based on 16S rRNA genes or concatenated single copy orthologs alignments can be constructed using scripts `16S_tree_constr.sh` and `S3*-S4*`;
-- Phylogenies of each single copy orthologs can be constructed using the scripts in `aa_seq` and `nuc_seq`; 
-- `topo_check_outgroup_rooted.R` is used to determined the topology supported by each gene tree in `./with_outgroup`(gene trees each was constructed using 28 members of three clades and two outgroups based on either amino acids or nucleotides).
-- Gene trees in `./without_outgroup` each was constructed using only 28 members of three clades, and rooted by [MAD](http://www.nature.com/articles/s41559-017-0193) and [MV](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0182238) methods, respectively.  The supporting topology of each MAD-rooted gene tree was determined using `topo_check_MADroot.R`, and MV-rooted gene tree was determined with `topo_check_MVroot.R`.
+- Phylogenies based on  concatenated single copy orthologs alignments can be constructed using scripts `S3*-S4*`;
+- Phylogenies of each single copy orthologs can be constructed using the scripts in  `nuc_seq`; 
+
 
 
 In the `02-RMS-identification` directory:
@@ -24,3 +23,7 @@ The original QuatetScores did not output the count of each topology.
 By modifying Ln117-120 in /your_installation_path/QuartetScores/src/QuartetCountConverter.hpp, and recompling the QuateteScores, the count of supported topologies for each quartet can be print.
 
 Here, modified QuartetCountConverter.hpp was uploaded.
+
+In the `04-identity-scanning` directory:
+- Scripts `s1*-s2*` calculated the nucleotide identity between clade members and visualized results
+- `s3.check_ANI.py` calculated the avg. ANI between clades
