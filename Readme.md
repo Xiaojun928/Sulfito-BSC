@@ -2,7 +2,7 @@
 
 This repository contains the scripts and data used to analyze the manuscript "Rapid Speciation Characterized by Incomplete Lineage Sorting in the Globally Distributed Bacterium Sulfitobacter".
 
-This repository focuses on **phylogenetic reconstruction, restriction-modification system identification, quartet analyses, genomic identity scanning, and neutral simualtions** for Sulfitobacter genomes.
+This repository focuses on **phylogenetic reconstruction, restriction-modification system identification, quartet analyses, genomic identity scanning, and neutral simulations** for Sulfitobacter genomes.
 
 ## Installation
 
@@ -30,6 +30,11 @@ pip install pandas biopython tqdm ete3 plotly
 - **QuartetScores**: For quartet topology analysis
   - Installation: [QuartetScores GitHub](https://github.com/lutteropp/QuartetScores)
   - **Note**: The original QuartetScores needs modification to output topology counts (see `03-Quartet-analyses/README.md`)
+
+- **GSL (GNU Scientific Library)**: Required for neutral simulation program
+  - Installation: [GSL website](https://www.gnu.org/software/gsl/)
+  - On macOS: `brew install gsl`
+  - On Linux: `sudo apt-get install libgsl-dev` (Debian/Ubuntu) or `sudo yum install gsl-devel` (RHEL/CentOS)
 
 ### REBASE database
 The restriction-modification (R-M) system reference data should be downloaded from [REBASE](http://rebase.neb.com/rebase/rebase.ftp.html), including:
@@ -148,7 +153,50 @@ This directory contains scripts for calculating nucleotide identity between geno
 
 ### **05-neutral-simulation/** - Neutral Evolution Simulation
 
-This directory is reserved for neutral evolution simulation analyses (currently under development).
+This directory contains a C++ program for simulating neutral evolution and haplotype dynamics in bacterial populations, with a focus on restriction-modification (R-M) system incompatibility loci.
+
+- **neutral_simulation.cpp**  
+  A population genetics simulation program that models the evolution of haplotypes across multiple populations. The program simulates:
+  - **Population structure**: Multiple populations with configurable sizes and migration rates (stepping-stone model)
+  - **Incompatibility loci**: Binary loci representing R-M system haplotypes (default: 10 loci)
+  - **Neutral loci**: Additional neutral sites for comparison
+  - **Life cycle stages**:
+    - **Migration**: Gene flow between adjacent populations
+    - **Reproduction**: Fitness-based selection and recombination
+    - **Recombination**: Horizontal gene transfer with configurable proportion and recombinant size
+    - **Mutation**: Point mutations at incompatibility loci with Poisson-distributed mutation rates
+  - **Haplotype tracking**: Monitors haplotype frequencies, fixation events, and loss across generations
+  - **Output files**:
+    - `haplotype.tsv`: Haplotype frequencies per generation
+    - `fixed_haplotype.tsv`: Records of haplotypes that reached fixation
+    - `run_<gen>.tsv`: Final generation individual genotypes and fitness
+    - `prerun_haplotype_<gen>.tsv`: Haplotype metadata for restarting simulations
+    - `pop_size_<gen>.tsv` and `mut_rate_<gen>.tsv`: Population parameters
+
+  **Key parameters** (command-line options):
+  - `-N`: Population size
+  - `-mut`: Mutation rate per locus
+  - `-mig`: Migration rate
+  - `-rec_p`: Proportion of recombinants
+  - `-rec_n`: Mean number of recombined loci
+  - `-s`: Effect of incompatibility between parents
+  - `-q`: Effect of mutations on survival rate
+  - `-nl_inc`: Number of incompatibility loci
+  - `-nl_neu`: Number of neutral loci
+  - `-final_gen`: Number of generations to simulate
+  - `-thres`: Frequency threshold for fixation (default: 0.95)
+  - `-eN`: Population size change events
+  - `-eU`: Mutation rate change events
+  - `-Fp`, `-Fu`, `-Fh`: Input files for population sizes, mutation rates, and haplotypes
+
+  **Compilation requirements**:
+  - Requires GSL (GNU Scientific Library) for random number generation and statistical functions
+  - Compile with: `g++ -o neutral_simulation neutral_simulation.cpp -lgsl -lgslcblas`
+
+  **Usage example**:
+  ```bash
+  ./neutral_simulation -N 1000 -mut 1e-6 -mig 0.0001 -rec_p 0.2 -rec_n 1.0 -s 0.1 -nl_inc 10 -final_gen 10000 -o output_folder/
+  ```
 
 ---
 
@@ -167,7 +215,7 @@ This directory is reserved for neutral evolution simulation analyses (currently 
   Contains scripts for identity calculation and visualization, along with ANI calculation results (`Sulfito_ANI.txt`).
 
 - **05-neutral-simulation/**  
-  Reserved for neutral evolution simulation analyses.
+  Contains a C++ simulation program (`neutral_simulation.cpp`) for modeling neutral evolution and haplotype dynamics in bacterial populations. The program simulates population genetics processes including migration, recombination, mutation, and selection, with a focus on restriction-modification system incompatibility loci. Output includes haplotype frequency trajectories, fixation records, and population parameter files.
 
 ---
 
